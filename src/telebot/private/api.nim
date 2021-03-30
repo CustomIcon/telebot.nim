@@ -956,9 +956,9 @@ proc stopPoll*(b: TeleBot, chatId = "", messageId = 0, inlineMessageId = "", rep
   else:
     result = some(unmarshal(res, Poll))
 
-proc deleteMessage*(b: Telebot, chatId: string, messageId: int): Future[bool] {.async.} =
+proc deleteMessage*(b: Telebot, chatId: int64, messageId: int): Future[bool] {.async.} =
   var data = newMultipartData()
-  data["chat_id"] = chat_id
+  data["chat_id"] = $chatId
   data["message_id"] = $messageId
 
   let res = await makeRequest(b, procName, data)
